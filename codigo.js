@@ -4,8 +4,8 @@ var ctx = c.getContext('2d');
 var radio = 10
 var x = c.width / 2;
 var y = c.height - radio;
-var dx = 2;
-var dy = -2;
+var dx = 4;
+var dy = -4;
 
 var paddelx = c.width / 2;
 var paddely = c.height - 10;
@@ -103,7 +103,6 @@ function drawBrick(){
                 bricks[i][j].x = bx;
                 bricks[i][j].y = by;
                 ctx.rect(bx,by,bricksWidth,bricksHeight);
-                ctx.fillstyle = "#0066cc";
                 ctx.fill();
                 ctx.closePath();
             }
@@ -121,7 +120,7 @@ function detectHits(){
                     brick.drawbricks = false;
                     score += 1;
                     if(score == bricksCols*bricksRows){
-                        alert("ganaste papi...");
+                        alert("FELICIDADES GANASTE <3");
                     }
                 }
             }
@@ -161,13 +160,16 @@ function draw(){
             }else{
                 lives = lives - 1;
                 if(lives <= 0){
-                    alert("perdiste papi");
+                    alert("PERDISTE AMIGUITO");
+                    lives = 4;
+                    score = 0;          
+                    
                 }
                 else{
                     x = c.width / 2;
                     y = c.height - radio;
-                    dx = 2;
-                    dy = -2;
+                    dx = 4;
+                    dy = -4;
                     paddelx = c.width / 2;
                 }
             }
