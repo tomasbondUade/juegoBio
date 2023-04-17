@@ -26,6 +26,8 @@ var brickOfSetLeft = 55;
 var score = 0;
 var lives = 3;
 
+var inicio = false;
+
 var bricks = [];
 
 for (let i = 0; i <bricksCols; i++){
@@ -39,6 +41,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseControler, false);
 document.addEventListener("keydown", pause, false);
+document.addEventListener("keydown", play, false);
 
 //apretar botones de costado
 function keyDownHandler(e) {
@@ -75,6 +78,13 @@ function pause(e){
         alert("pause")
     }
 }
+
+function play(e){
+    if (e.keyCode == 13){
+        inicio = true;
+    }
+}
+
 
 //circulo
 function drawBall(){
@@ -147,43 +157,46 @@ function draw(){
     detectHits();
     drawScore();
     drawLives();
-    if(x + dx > c.width - radio || x + dx < radio){
-        dx = -dx;
-    }
+    
+    if (inicio == true){
+        if(x + dx > c.width - radio || x + dx < radio){
+            dx = -dx;
+        }
 
-    if(y + dy < radio){
-        dy = -dy;
-    }else{
-        if( y + dy > c.height - radio){
-            if (x > paddelx && x < paddelx + paddelw){
-                dy = -dy;
-            }else{
-                lives = lives - 1;
-                if(lives <= 0){
-                    alert("PERDISTE AMIGUITO");
-                    lives = 4;
-                    score = 0;          
-                    
-                }
-                else{
-                    x = c.width / 2;
-                    y = c.height - radio;
-                    dx = 4;
-                    dy = -4;
-                    paddelx = c.width / 2;
+        if(y + dy < radio){
+            dy = -dy;
+        }else{
+            if( y + dy > c.height - radio){
+                if (x > paddelx && x < paddelx + paddelw){
+                    dy = -dy;
+                }else{
+                    lives = lives - 1;
+                    if(lives <= 0){
+                        alert("PERDISTE AMIGUITO");
+                        lives = 4;
+                        score = 0;          
+                        
+                    }
+                    else{
+                        x = c.width / 2;
+                        y = c.height - radio;
+                        dx = 4;
+                        dy = -4;
+                        paddelx = c.width / 2;
+                    }
                 }
             }
         }
-    }
 
-    if(leftMove && paddelx > 0){
-        paddelx -= 8;
+        if(leftMove && paddelx > 0){
+            paddelx -= 8;
+        }
+        if(rightMove && paddelx < c.width - paddelw){
+            paddelx += 8;
+        }
+        x += dx;
+        y += dy;
+        }
     }
-    if(rightMove && paddelx < c.width - paddelw){
-        paddelx += 8;
-    }
-    x += dx;
-    y += dy;
-}
 
 setInterval(draw,10);
