@@ -9,7 +9,7 @@ var dy = -4;
 
 var paddelx = c.width / 2;
 var paddely = c.height - 10;
-var paddelw = 60;
+var paddelw = 80;
 var paddelh = 12;
 
 var rightMove = false;
