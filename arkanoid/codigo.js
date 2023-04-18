@@ -1,5 +1,8 @@
 var c = document.getElementById('arkanoid');
 var ctx = c.getContext('2d');
+const startButton = document.getElementById('start');
+const gameOverSign = document.getElementById('gameOver');
+
 
 var radio = 10
 var x = c.width / 2;
@@ -34,7 +37,6 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseControler, false);
 document.addEventListener("keydown", pause, false);
-document.addEventListener("keydown", play, false);
 
 for (let i = 0; i <bricksCols; i++){
     bricks[i] = [];
@@ -80,11 +82,11 @@ function pause(e){
     }
 }
 
-//iniciar
-function play(e){
-    if (e.keyCode == 13){
-        inicio = true;
-    }
+
+function gameOver () {
+    gameOverSign.style.display = 'block';
+    startButton.disabled = false;
+    location.reload();
 }
 
 //circulo
@@ -158,47 +160,51 @@ function draw(){
     detectHits();
     drawScore();
     drawLives();
-    
-    if (inicio == true){
-        if(x + dx > c.width - radio || x + dx < radio){
-            dx = -dx;
-        }
 
-        if(y + dy < radio){
-            dy = -dy;
-        }else{
-            if( y + dy > c.height - radio){
-                if (x >= paddelx && x <= paddelx + paddelw){
-                    dy = -dy;
-                }else{
-                    lives = lives - 1;
-                    if(lives <= 0){
-                        alert("PERDISTE AMIGUITO");
-                        lives = 4;
-                        score = 0;
-                        inicio = false;
-                               
-                    }
-                    else{
-                        x = c.width / 2;
-                        y = c.height - radio;
-                        dx = 3;
-                        dy = -3;
-                        paddelx = c.width / 2;
-                    }
+    if(x + dx > c.width - radio || x + dx < radio){
+        dx = -dx;
+    }
+
+    if(y + dy < radio){
+        dy = -dy;
+    }else{
+        if( y + dy > c.height - radio){
+            if (x >= paddelx && x <= paddelx + paddelw){
+                dy = -dy;
+            }else{
+                lives = lives - 1;
+                if(lives <= 0){
+                    alert("PERDISTE AMIGUITO");
+                    lives = 4;
+                    score = 0;  
+                    gameOver();
+                }
+                else{
+                    x = c.width / 2;
+                    y = c.height - radio;
+                    dx = 3;
+                    dy = -3;
+                    paddelx = c.width / 2;
                 }
             }
         }
+    }
 
-        if(leftMove && paddelx > 0){
-            paddelx -= 8;
-        }
-        if(rightMove && paddelx < c.width - paddelw){
-            paddelx += 8;
-        }
-        x += dx;
-        y += dy;
-        }
+    if(leftMove && paddelx > 0){
+        paddelx -= 8;
+    }
+    if(rightMove && paddelx < c.width - paddelw){
+        paddelx += 8;
+    }
+    x += dx;
+    y += dy;
+    }
+
+function startGame(){
+    draw();
+    gameOverSign.style.display = 'none';
+    startButton.disabled = true;
+    moveInternal = setInterval(draw,10);
 }
 
-setInterval(draw,10);
+startButton.addEventListener('click', startGame);
