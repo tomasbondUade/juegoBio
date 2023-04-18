@@ -39,6 +39,9 @@
     aspect-ratio: 1;
 }
 
+.emptySquare{
+    background-color: #456990;
+}
 .snakeSquare{
     background-color: #ccf47f;
 }
