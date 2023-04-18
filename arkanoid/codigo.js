@@ -134,6 +134,7 @@ function detectHits(){
                     score += 1;
                     if(score == bricksCols*bricksRows){
                         alert("FELICIDADES GANASTE <3");
+                        location.reload();
                     }
                 }
             }
