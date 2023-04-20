@@ -8,7 +8,30 @@
     <title>Informatica Game</title>
 </head>
 <body>
+    <img src="assets/fotoadn.png" alt="foto adn">
     <button><a href="../index.html">volver</a></button>
     <img id="letraA"src="assets/letraA.jpg" alt="letra A">
+    <div id="no-drop" class="drag-drop"> #no-drop </div>
+
+    <div id="yes-drop" class="drag-drop"> #yes-drop </div>
+
+    <div id="outer-dropzone" class="dropzone">
+    #outer-dropzone
+    <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+    </div>
+    <script type="module">
+        import interact from 
+        'https://cdn.interactjs.io/v1.10.17/interactjs/index.js'
+        
+        interact('.item').draggable({
+          listeners: {
+            move (event) {
+              console.log(event.pageX,
+                          event.pageY)
+            }
+          }
+        })
+    </script>
+    <script src="./codigo.js"></script>
 </body>
 </html>
