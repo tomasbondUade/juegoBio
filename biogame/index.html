@@ -8,30 +8,34 @@
     <title>Informatica Game</title>
 </head>
 <body>
-    <img src="assets/fotoadn.png" alt="foto adn">
-    <button><a href="../index.html">volver</a></button>
-    <img id="letraA"src="assets/letraA.jpg" alt="letra A">
-    <div id="no-drop" class="drag-drop"> #no-drop </div>
+  <div class="backgroud">
+    <h1>Biotec Matching Game</h1>
+    <div>
+      <div class="main">
+        <div class="imagenes">
+          <img draggable="true" src="" name="imagen" class="ima" alt="">
+          <img draggable="true" src="" name="imagen1" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen2" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen3" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen4" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen5" class="ima"  alt="">
+        </div>
+        <div class="imagenes">
+          <img draggable="true" src="" name="imagen6" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen7" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen8" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen9" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen10" class="ima"  alt="">
+          <img draggable="true" src="" name="imagen11" class="ima"  alt="">
+        </div>
+      </div>
 
-    <div id="yes-drop" class="drag-drop"> #yes-drop </div>
-
-    <div id="outer-dropzone" class="dropzone">
-    #outer-dropzone
-    <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+      
+      <button onclick="cargarImagenAleateoria();">start</button>
     </div>
-    <script type="module">
-        import interact from 
-        'https://cdn.interactjs.io/v1.10.17/interactjs/index.js'
-        
-        interact('.item').draggable({
-          listeners: {
-            move (event) {
-              console.log(event.pageX,
-                          event.pageY)
-            }
-          }
-        })
-    </script>
-    <script src="./codigo.js"></script>
+  </div>
+  
+  
+  <script src="./codigo.js"></script>
 </body>
 </html>

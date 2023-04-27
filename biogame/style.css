@@ -1,22 +1,28 @@
-#outer-dropzone {
-    height: 140px;
-  }
-  
-  #inner-dropzone {
-    height: 80px;
-  }
-  
-  .dropzone {
-    background-color: #bfe4ff;
-    border: dashed 4px transparent;
-    border-radius: 4px;
-    margin: 10px auto 30px;
-    padding: 10px;
-    width: 80%;
-    transition: background-color 0.3s;
-  }
-  
-  .drop-active {
-    border-color: #aaa;
-  }
-  
+.main{
+    max-width: 50%;
+    max-height: 80%;
+    background-image: url(assets/fotoadn.png);
+    background-repeat: no-repeat;
+    background-size: 500px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.main img{
+    max-width: 70px;
+    padding-top: 70px;
+    text-align: center;
+}
+
+.imagenes{
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    grid-gap: 5px;
+    padding-left: 150px;
+    cursor: move;
+}
+
+.ima.over{
+    border: 3px dotted #666;
+}
+

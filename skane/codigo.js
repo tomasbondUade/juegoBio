@@ -114,7 +114,7 @@ const createRandomFood = () => {
 }
 
 const updateScore = () => {
-    scoreBoard.innerText = score;
+    scoreBoard.innerText = score - 4;
 }
 
 const createBoard = () => {

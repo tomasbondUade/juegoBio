@@ -1,54 +1,93 @@
-/* The dragging code for '.draggable' from the demo above
- * applies to this demo as well so it doesn't have to be repeated. */
+var letras = new Array();
 
-// enable draggables to be dropped into this
-interact('.dropzone').dropzone({
-    // only accept elements matching this CSS selector
-    accept: '#yes-drop',
-    // Require a 75% element overlap for a drop to be possible
-    overlap: 0.75,
-  
-    // listen for drop related events:
-  
-    ondropactivate: function (event) {
-      // add active dropzone feedback
-      event.target.classList.add('drop-active')
-    },
-    ondragenter: function (event) {
-      var draggableElement = event.relatedTarget
-      var dropzoneElement = event.target
-  
-      // feedback the possibility of a drop
-      dropzoneElement.classList.add('drop-target')
-      draggableElement.classList.add('can-drop')
-      draggableElement.textContent = 'Dragged in'
-    },
-    ondragleave: function (event) {
-      // remove the drop feedback style
-      event.target.classList.remove('drop-target')
-      event.relatedTarget.classList.remove('can-drop')
-      event.relatedTarget.textContent = 'Dragged out'
-    },
-    ondrop: function (event) {
-      event.relatedTarget.textContent = 'Dropped'
-    },
-    ondropdeactivate: function (event) {
-      // remove active dropzone feedback
-      event.target.classList.remove('drop-active')
-      event.target.classList.remove('drop-target')
+letras[0] = "assets/letraA.jpg";
+letras[1] = "assets/letraC.jpg";
+letras[2] = "assets/letraG.jpg";
+letras[3] = "assets/letraT.jpg";
+letras[4] = "assets/boxVacia.png";
+
+
+
+function cargarImagenAleateoria() {
+    var azar0 = Math.floor(Math.random() * letras.length);
+    var azar1 = Math.floor(Math.random() * letras.length);
+    var azar2 = Math.floor(Math.random() * letras.length);
+    var azar3 = Math.floor(Math.random() * letras.length);
+    var azar4 = Math.floor(Math.random() * letras.length);
+    var azar5 = Math.floor(Math.random() * letras.length);
+    var azar6 = Math.floor(Math.random() * letras.length);
+    var azar7 = Math.floor(Math.random() * letras.length);
+    var azar8 = Math.floor(Math.random() * letras.length);
+    var azar9 = Math.floor(Math.random() * letras.length);
+    var azar10 = Math.floor(Math.random() * letras.length);
+    var azar11 = Math.floor(Math.random() * letras.length);
+
+    document.images["imagen"].src = letras[azar0]
+    document.images["imagen1"].src = letras[azar1]
+    document.images["imagen2"].src = letras[azar2]
+    document.images["imagen3"].src = letras[azar3]
+    document.images["imagen4"].src = letras[azar4]
+    document.images["imagen5"].src = letras[azar5]
+    document.images["imagen6"].src = letras[azar6]
+    document.images["imagen7"].src = letras[azar7]
+    document.images["imagen8"].src = letras[azar8]
+    document.images["imagen9"].src = letras[azar9]
+    document.images["imagen10"].src = letras[azar10]
+    document.images["imagen11"].src = letras[azar11]
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+
+    function handleDragStart(e) {
+      this.style.opacity = '0.4';
+      dragSrcEl = this;
+      
     }
-  })
   
-  interact('.drag-drop')
-    .draggable({
-      inertia: true,
-      modifiers: [
-        interact.modifiers.restrictRect({
-          restriction: 'parent',
-          endOnly: true
-        })
-      ],
-      autoScroll: true,
-      // dragMoveListener from the dragging demo above
-      listeners: { move: dragMoveListener }
-    })
+    function handleDragEnd(e) {
+      this.style.opacity = '1';
+  
+      items.forEach(function (item) {
+        item.classList.remove('over');
+      });
+    }
+  
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+  
+      return false;
+    }
+
+    function handleDrop(e){
+
+        e.stopPropagation();
+    
+        if (dragSrcEl !== this){
+            console.log()
+        }
+        return false;
+    }
+  
+    function handleDragEnter(e) {
+      this.classList.add('over');
+    }
+  
+    function handleDragLeave(e) {
+      this.classList.remove('over');
+    }
+  
+    let items = document.querySelectorAll('.imagenes .ima');
+    items.forEach(function(item) {
+      item.addEventListener('dragstart', handleDragStart);
+      item.addEventListener('dragover', handleDragOver);
+      item.addEventListener('dragenter', handleDragEnter);
+      item.addEventListener('dragleave', handleDragLeave);
+      item.addEventListener('dragend', handleDragEnd);
+      item.addEventListener('drop', handleDrop);
+    });
+  });
+
+
