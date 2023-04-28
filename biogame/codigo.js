@@ -66,7 +66,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         e.stopPropagation();
     
         if (dragSrcEl !== this){
-            console.log()
+            var thisName = this.src
+            this.src = dragSrcEl.src
+            dragSrcEl.src = thisName
         }
         return false;
     }
