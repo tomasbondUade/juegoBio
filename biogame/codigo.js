@@ -22,7 +22,7 @@ function cargarImagenAleateoria() {
     var azar10 = Math.floor(Math.random() * letras.length);
     var azar11 = Math.floor(Math.random() * letras.length);
 
-    document.images["imagen"].src = letras[azar0]
+    document.images["imagen"].src  = letras[azar0]
     document.images["imagen1"].src = letras[azar1]
     document.images["imagen2"].src = letras[azar2]
     document.images["imagen3"].src = letras[azar3]
@@ -90,6 +90,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
       item.addEventListener('dragend', handleDragEnd);
       item.addEventListener('drop', handleDrop);
     });
-  });
+});
 
 
+function revisar(){
+  console.log(imagen.src)
+  if(imagen.src == "http://127.0.0.1:5500/biogame/assets/letraA.jpg" && imagen1.src == "http://127.0.0.1:5500/biogame/assets/letraT.jpg"){
+    console.log("hola")
+  }
+} 

@@ -18,13 +18,15 @@ var paddelh = 12;
 var rightMove = false;
 var leftMove = false;
 
-var bricksRows = 3;
-var bricksCols = 5;
-var bricksWidth = 80;
+//var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
+//var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
+var bricksRows = 1;
+var bricksCols = 1;
+var bricksWidth = 40;
 var bricksHeight = 30;
-var brickPadding = 12;
-var brickOfSetTop = 30;
-var brickOfSetLeft = 55;
+var brickPadding = 50;
+var brickOfSetTop = Math.floor(Math.random() * (80 - 50) + 50);;
+var brickOfSetLeft = Math.floor(Math.random() * (60 - 40) + 40);;
 
 var score = 0;
 var lives = 3;
@@ -82,7 +84,6 @@ function pause(e){
     }
 }
 
-
 function gameOver () {
     gameOverSign.style.display = 'block';
     startButton.disabled = false;
@@ -106,6 +107,8 @@ function drawPadel(){
     ctx.closePath();  
 }
 
+
+
 //dibuja bloques
 function drawBrick(){
     for (let i = 0; i < bricksCols; i++){
@@ -122,6 +125,10 @@ function drawBrick(){
         }
     }
 }
+
+
+
+
 //detecta cuando la pelota toca un ladrillo
 function detectHits(){
     for (let i = 0; i <bricksCols; i++){
@@ -133,14 +140,16 @@ function detectHits(){
                     brick.drawbricks = false;
                     score += 1;
                     if(score == bricksCols*bricksRows){
-                        alert("FELICIDADES GANASTE <3");
-                        location.reload();
+                        win()
+                        brick.drawbricks = true;
                     }
                 }
             }
         }
     }
 }
+
+
 
 function drawScore(){
     ctx.font = "20px Arial";
@@ -152,12 +161,41 @@ function drawLives(){
     ctx.fillText("Lives: " + lives, c.width-80,20);
 }
 
+function win(){
+    var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
+    var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
+    for (let i = 0; i <bricksCols; i++){
+        bricks[i] = [];
+        for (let j = 0; j <bricksRows; j++){
+            bricks[i][j] = {x:0, y:0, drawbricks:true};
+        }
+    }
+    alert("FELICIDADES GANASTE <3");
+
+}
+function drawBrickWin(){
+    for (let i = 0; i < bricksCols; i++){
+        for (let j = 0; j < bricksRows; j++){
+            if (bricks[i][j].drawbricks){
+                var bZ = (i * (bricksWidth + brickPadding)) + brickOfSetLeft;
+                var bi = (j * (bricksHeight + brickPadding) + brickOfSetTop);
+                bricks[i][j].x = bZ;
+                bricks[i][j].y = bi;
+                ctx.rect(bZ,bi,bricksWidth,bricksHeight);
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }
+}
+
 //dibuja todo moviendose
 function draw(){
     ctx.clearRect(0,0,c.width,c.height);
     drawBall(); 
     drawPadel();
     drawBrick();
+    drawBrickWin();
     detectHits();
     drawScore();
     drawLives();
@@ -199,7 +237,7 @@ function draw(){
     }
     x += dx;
     y += dy;
-    }
+}
 
 function startGame(){
     draw();
