@@ -3,8 +3,6 @@ var ctx = c.getContext('2d');
 const startButton = document.getElementById('start');
 const gameOverSign = document.getElementById('gameOver');
 
-
- 
 var radio = 10
 var x = c.width / 2;
 var y = c.height - radio;
@@ -21,9 +19,6 @@ var leftMove = false;
 
 var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
 var bricksCols = Math.floor(Math.random() * (6 - 5) + 5);
-console.log(bricksCols, bricksRows)
-//var bricksRows = 1;
-//var bricksCols = 1;
 var bricksWidth = 40;
 var bricksHeight = 30;
 var brickPadding = 50;
@@ -43,7 +38,7 @@ document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseControler, false);
 document.addEventListener("keydown", pause, false);
 
-
+//ingreso del mail a la memoria local
 function handleName(score){
     debugger
     var nombre = prompt("Ingrese su mail", "");
@@ -55,6 +50,7 @@ function handleName(score){
     localStorage.setItem("users", JSON.stringify(users))
 }
 
+//muestra en pantalla a los usuarios
 function displayUsers(){
    var listaJugadores = document.getElementById("listaJugadores")
    var users = JSON.parse(localStorage.getItem("users"))||[]
@@ -170,7 +166,6 @@ function detectHits(){
                     actualScore += 1;
                     score += 1;
                     if(actualScore == bricksCols*bricksRows){
-                        debugger
                         win()
                         actualScore = 0
                     }
