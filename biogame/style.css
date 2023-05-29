@@ -14,6 +14,12 @@
     text-align: center;
 }
 
+.subMain{
+    background-image: url(assets/fotoadn.png);
+    background-repeat: no-repeat;
+    background-size: 500px;
+}
+
 .imagenes{
     display: grid;
     grid-template-columns: repeat(2, 120px);

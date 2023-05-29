@@ -4,11 +4,12 @@ letras[0] = "A.jpg";
 letras[1] = "C.jpg";
 letras[2] = "G.jpg";
 letras[3] = "T.jpg";
-letras[4] = "Vacia.png";
 
 function renderizarImagenes(){
   var imagenes1 = document.getElementById("imagenes1")
   var imagenes2 = document.getElementById("imagenes2")
+  var imagenes3 = document.getElementById("imagenes3")
+  var imagenes4 = document.getElementById("imagenes4")
 
   for(var i = 0; i < 6; i ++){
     imagenes1.innerHTML = imagenes1.innerHTML + `<img draggable="true" src="" name="imagen${i}" class="ima" alt=""></img>`
@@ -17,6 +18,14 @@ function renderizarImagenes(){
   for(var i = 0; i < 6; i ++){
     imagenes2.innerHTML = imagenes2.innerHTML + `<img draggable="true" src="" name="imagen${6 + i}" class="ima" alt=""></img>`
   }
+
+  for(var i = 0; i < 6; i ++){
+    imagenes3.innerHTML = imagenes3.innerHTML + `<img draggable="true" src="" name="imagen${12+i}" class="ima" alt=""></img>`
+  }
+
+  for(var i = 0; i < 6; i ++){
+    imagenes4.innerHTML = imagenes4.innerHTML + `<img draggable="true" src="" name="imagen${18 + i}" class="ima" alt=""></img>`
+  }
   
   cargarImagenAleateoria();
   makeDragable();
@@ -24,7 +33,7 @@ function renderizarImagenes(){
 
 function cargarImagenAleateoria() {
     var imagenAleatoria = []
-    for(var i = 0; i < 12; i ++){
+    for(var i = 0; i < 24; i ++){
       imagenAleatoria.push(Math.floor(Math.random() * letras.length))
     }
 
@@ -81,6 +90,9 @@ function makeDragable(){
     item.addEventListener('dragstart', handleDragStart);
     item.addEventListener('dragover', handleDragOver);
     item.addEventListener('dragenter', handleDragEnter);
+  });
+
+  items.forEach(function(item){
     item.addEventListener('dragleave', handleDragLeave);
     item.addEventListener('dragend', handleDragEnd);
     item.addEventListener('drop', handleDrop);
@@ -88,9 +100,61 @@ function makeDragable(){
 };
 
 function revisar(){
+  
   var letras = Array.from(document.images).map(image=>{
     var leter = image.currentSrc.split("/").slice(-1)[0].split(".")[0]
     return leter
-  })
+  });
+  debugger
+  var n = 0
+  for(i = 0; i < 12; i= i+2){
+    if(letras[i] == "C"){
+      var x = i + 1
+      if(letras[x]== "G"){
+        console.log("ok")
+      }
+      else{
+        n = 1
+      }
+    }
+    
+    if(letras[i] == "G"){
+      var x = i + 1
+      if(letras[x]== "C"){
+        console.log("ok")
+      }
+      else{
+        n = 1
+      }
+    }
+
+    if(letras[i] == "A"){
+      var x = i + 1
+      if(letras[x]== "T"){
+        console.log("ok")
+      }
+      else{
+        n = 1
+      }
+    }
+
+    if(letras[i] == "T"){
+      var x = i + 1
+      if(letras[x]== "A"){
+        console.log("ok")
+      }
+      else{
+        n = 1
+      }
+    }
+  }
   
+  if(n === 1){
+    alert("INCORRECTO :-(")
+    location.reload();
+  }
+  else{
+    alert("FELICIDADES")
+    location.reload();
+  }
 };
