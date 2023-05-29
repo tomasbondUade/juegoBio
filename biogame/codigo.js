@@ -1,101 +1,96 @@
 var letras = new Array();
 
-letras[0] = "assets/letraA.jpg";
-letras[1] = "assets/letraC.jpg";
-letras[2] = "assets/letraG.jpg";
-letras[3] = "assets/letraT.jpg";
-letras[4] = "assets/boxVacia.png";
+letras[0] = "A.jpg";
+letras[1] = "C.jpg";
+letras[2] = "G.jpg";
+letras[3] = "T.jpg";
+letras[4] = "Vacia.png";
 
+function renderizarImagenes(){
+  var imagenes1 = document.getElementById("imagenes1")
+  var imagenes2 = document.getElementById("imagenes2")
 
+  for(var i = 0; i < 6; i ++){
+    imagenes1.innerHTML = imagenes1.innerHTML + `<img draggable="true" src="" name="imagen${i}" class="ima" alt=""></img>`
+  }
 
-function cargarImagenAleateoria() {
-    var azar0 = Math.floor(Math.random() * letras.length);
-    var azar1 = Math.floor(Math.random() * letras.length);
-    var azar2 = Math.floor(Math.random() * letras.length);
-    var azar3 = Math.floor(Math.random() * letras.length);
-    var azar4 = Math.floor(Math.random() * letras.length);
-    var azar5 = Math.floor(Math.random() * letras.length);
-    var azar6 = Math.floor(Math.random() * letras.length);
-    var azar7 = Math.floor(Math.random() * letras.length);
-    var azar8 = Math.floor(Math.random() * letras.length);
-    var azar9 = Math.floor(Math.random() * letras.length);
-    var azar10 = Math.floor(Math.random() * letras.length);
-    var azar11 = Math.floor(Math.random() * letras.length);
-
-    document.images["imagen"].src  = letras[azar0]
-    document.images["imagen1"].src = letras[azar1]
-    document.images["imagen2"].src = letras[azar2]
-    document.images["imagen3"].src = letras[azar3]
-    document.images["imagen4"].src = letras[azar4]
-    document.images["imagen5"].src = letras[azar5]
-    document.images["imagen6"].src = letras[azar6]
-    document.images["imagen7"].src = letras[azar7]
-    document.images["imagen8"].src = letras[azar8]
-    document.images["imagen9"].src = letras[azar9]
-    document.images["imagen10"].src = letras[azar10]
-    document.images["imagen11"].src = letras[azar11]
+  for(var i = 0; i < 6; i ++){
+    imagenes2.innerHTML = imagenes2.innerHTML + `<img draggable="true" src="" name="imagen${6 + i}" class="ima" alt=""></img>`
+  }
+  
+  cargarImagenAleateoria();
+  makeDragable();
 }
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
-
-    function handleDragStart(e) {
-      this.style.opacity = '0.4';
-      dragSrcEl = this;
-      
-    }
-  
-    function handleDragEnd(e) {
-      this.style.opacity = '1';
-  
-      items.forEach(function (item) {
-        item.classList.remove('over');
-      });
-    }
-  
-    function handleDragOver(e) {
-      if (e.preventDefault) {
-        e.preventDefault();
-      }
-  
-      return false;
+function cargarImagenAleateoria() {
+    var imagenAleatoria = []
+    for(var i = 0; i < 12; i ++){
+      imagenAleatoria.push(Math.floor(Math.random() * letras.length))
     }
 
-    function handleDrop(e){
+    imagenAleatoria.forEach((imagen, index)=>{
+      document.images[`imagen${index}`].src  = "assets/"+letras[imagen]
+    })
+}
 
-        e.stopPropagation();
+function makeDragable(){
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
+    dragSrcEl = this;
     
-        if (dragSrcEl !== this){
-            var thisName = this.src
-            this.src = dragSrcEl.src
-            dragSrcEl.src = thisName
-        }
-        return false;
-    }
-  
-    function handleDragEnter(e) {
-      this.classList.add('over');
-    }
-  
-    function handleDragLeave(e) {
-      this.classList.remove('over');
-    }
-  
-    let items = document.querySelectorAll('.imagenes .ima');
-    items.forEach(function(item) {
-      item.addEventListener('dragstart', handleDragStart);
-      item.addEventListener('dragover', handleDragOver);
-      item.addEventListener('dragenter', handleDragEnter);
-      item.addEventListener('dragleave', handleDragLeave);
-      item.addEventListener('dragend', handleDragEnd);
-      item.addEventListener('drop', handleDrop);
-    });
-});
+  }
 
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+
+    items.forEach(function (item) {
+      item.classList.remove('over');
+    });
+  }
+
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+
+    return false;
+  }
+
+  function handleDrop(e){
+
+      e.stopPropagation();
+  
+      if (dragSrcEl !== this){
+          var thisName = this.src
+          this.src = dragSrcEl.src
+          dragSrcEl.src = thisName
+      }
+      return false;
+  }
+
+  function handleDragEnter(e) {
+    this.classList.add('over');
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('over');
+  }
+
+  let items = document.querySelectorAll('.imagenes .ima');
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('dragenter', handleDragEnter);
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('drop', handleDrop);
+  });
+};
 
 function revisar(){
-  console.log(imagen.src)
-  if(imagen.src == "http://127.0.0.1:5500/biogame/assets/letraA.jpg" && imagen1.src == "http://127.0.0.1:5500/biogame/assets/letraT.jpg"){
-    console.log("hola")
-  }
-} 
+  var letras = Array.from(document.images).map(image=>{
+    var leter = image.currentSrc.split("/").slice(-1)[0].split(".")[0]
+    return leter
+  })
+  
+};

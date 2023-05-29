@@ -4,11 +4,12 @@ const startButton = document.getElementById('start');
 const gameOverSign = document.getElementById('gameOver');
 
 
+ 
 var radio = 10
 var x = c.width / 2;
 var y = c.height - radio;
-var dx = 3;
-var dy = -3;
+var dx = 2;
+var dy = -2;
 
 var paddelx = c.width / 2;
 var paddely = c.height - 10;
@@ -18,10 +19,8 @@ var paddelh = 12;
 var rightMove = false;
 var leftMove = false;
 
-//var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
-//var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
-var bricksRows = 1;
-var bricksCols = 1;
+var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
+var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
 var bricksWidth = 40;
 var bricksHeight = 30;
 var brickPadding = 50;
@@ -29,6 +28,7 @@ var brickOfSetTop = Math.floor(Math.random() * (80 - 50) + 50);;
 var brickOfSetLeft = Math.floor(Math.random() * (60 - 40) + 40);;
 
 var score = 0;
+var actualScore = 0;
 var lives = 3;
 
 var inicio = false;
@@ -40,14 +40,37 @@ document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseControler, false);
 document.addEventListener("keydown", pause, false);
 
-for (let i = 0; i <bricksCols; i++){
-    bricks[i] = [];
-    for (let j = 0; j <bricksRows; j++){
-        bricks[i][j] = {x:0, y:0, drawbricks:true};
+
+function handleName(score){
+    debugger
+    var nombre = prompt("Ingrese su mail", "");
+    while(nombre === ''){
+        nombre = prompt("Ingrese su mail", ""); 
     }
+    var users = JSON.parse(localStorage.getItem("users"))||[]
+    users.push({nombre, score})
+    localStorage.setItem("users", JSON.stringify(users))
 }
 
+function displayUsers(){
+   var listaJugadores = document.getElementById("listaJugadores")
+   var users = JSON.parse(localStorage.getItem("users"))||[]
+   var li = users.map((user,index)=>{
+    return `<li key="${index}">${user.nombre}: ${user.score}</li>` 
+   })
 
+   listaJugadores.innerHTML = li.join("")
+}
+
+function llenarBricks(){
+    for (let i = 0; i <bricksCols; i++){
+        bricks[i] = [];
+        for (let j = 0; j <bricksRows; j++){
+            bricks[i][j] = {x:0, y:0, drawbricks:true};
+        }
+    }
+}
+llenarBricks();
 //apretar botones de costado
 function keyDownHandler(e) {
     if(e.keyCode == 37){
@@ -85,6 +108,9 @@ function pause(e){
 }
 
 function gameOver () {
+    handleName(score);
+    lives = 4;
+    score = 0; 
     gameOverSign.style.display = 'block';
     startButton.disabled = false;
     location.reload();
@@ -138,10 +164,11 @@ function detectHits(){
                 if(x > brick.x && x < brick.x + bricksWidth && y > brick.y && y < brick.y + bricksHeight){
                     dy = -dy;
                     brick.drawbricks = false;
+                    actualScore += 1;
                     score += 1;
-                    if(score == bricksCols*bricksRows){
+                    if(actualScore == bricksCols*bricksRows){
                         win()
-                        brick.drawbricks = true;
+                        actualScore = 0
                     }
                 }
             }
@@ -162,31 +189,12 @@ function drawLives(){
 }
 
 function win(){
-    var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
-    var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
-    for (let i = 0; i <bricksCols; i++){
-        bricks[i] = [];
-        for (let j = 0; j <bricksRows; j++){
-            bricks[i][j] = {x:0, y:0, drawbricks:true};
-        }
-    }
+    //bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
+    //bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
+    bricksRows = 2;
+    bricksCols = 2;
+    llenarBricks();
     alert("FELICIDADES GANASTE <3");
-
-}
-function drawBrickWin(){
-    for (let i = 0; i < bricksCols; i++){
-        for (let j = 0; j < bricksRows; j++){
-            if (bricks[i][j].drawbricks){
-                var bZ = (i * (bricksWidth + brickPadding)) + brickOfSetLeft;
-                var bi = (j * (bricksHeight + brickPadding) + brickOfSetTop);
-                bricks[i][j].x = bZ;
-                bricks[i][j].y = bi;
-                ctx.rect(bZ,bi,bricksWidth,bricksHeight);
-                ctx.fill();
-                ctx.closePath();
-            }
-        }
-    }
 }
 
 //dibuja todo moviendose
@@ -195,7 +203,6 @@ function draw(){
     drawBall(); 
     drawPadel();
     drawBrick();
-    drawBrickWin();
     detectHits();
     drawScore();
     drawLives();
@@ -212,17 +219,14 @@ function draw(){
                 dy = -dy;
             }else{
                 lives = lives - 1;
-                if(lives <= 0){
-                    alert("PERDISTE AMIGUITO");
-                    lives = 4;
-                    score = 0;  
+                if(lives <= 0){ 
                     gameOver();
                 }
                 else{
                     x = c.width / 2;
                     y = c.height - radio;
-                    dx = 3;
-                    dy = -3;
+                    dx = 2;
+                    dy = -2;
                     paddelx = c.width / 2;
                 }
             }
@@ -240,10 +244,10 @@ function draw(){
 }
 
 function startGame(){
-    draw();
     gameOverSign.style.display = 'none';
     startButton.disabled = true;
     moveInternal = setInterval(draw,10);
 }
 
+displayUsers();
 startButton.addEventListener('click', startGame);
