@@ -20,7 +20,10 @@ var rightMove = false;
 var leftMove = false;
 
 var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
-var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
+var bricksCols = Math.floor(Math.random() * (6 - 5) + 5);
+console.log(bricksCols, bricksRows)
+//var bricksRows = 1;
+//var bricksCols = 1;
 var bricksWidth = 40;
 var bricksHeight = 30;
 var brickPadding = 50;
@@ -167,9 +170,12 @@ function detectHits(){
                     actualScore += 1;
                     score += 1;
                     if(actualScore == bricksCols*bricksRows){
+                        debugger
                         win()
                         actualScore = 0
                     }
+
+
                 }
             }
         }
@@ -189,10 +195,8 @@ function drawLives(){
 }
 
 function win(){
-    //bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
-    //bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
-    bricksRows = 2;
-    bricksCols = 2;
+    bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
+    bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
     llenarBricks();
     alert("FELICIDADES GANASTE <3");
 }
