@@ -105,7 +105,6 @@ function revisar(){
     var leter = image.currentSrc.split("/").slice(-1)[0].split(".")[0]
     return leter
   });
-  debugger
   var n = 0
   for(i = 0; i < 12; i= i+2){
     if(letras[i] == "C"){
@@ -151,10 +150,23 @@ function revisar(){
   
   if(n === 1){
     alert("INCORRECTO :-(")
-    location.reload();
+    const element = document.getElementById('loserGif');
+    const background = document.getElementById('fondo')
+    background.style.display = 'none'; // Para ocultar el elemento
+    element.style.display = 'block'; // Para mostrar el elemento
+    setTimeout(()=>{
+      location.reload();
+    },2000)
+
   }
   else{
     alert("FELICIDADES")
-    location.reload();
+    const element = document.getElementById('winGif');
+    const background = document.getElementById('fondo')
+    background.style.display = 'none'; // Para ocultar el elemento
+    element.style.display = 'block'; // Para mostrar el elemento
+    setTimeout(()=>{
+      location.reload();
+    },2000)
   }
 };
