@@ -18,7 +18,13 @@ var rightMove = false;
 var leftMove = false;
 
 var bricksRows = Math.floor(Math.random() * (5 - 3) + 3);
+<<<<<<< HEAD
+var bricksCols = Math.floor(Math.random() * (10 - 6) + 5);
+//var bricksRows = 1;
+//var bricksCols = 1;
+=======
 var bricksCols = Math.floor(Math.random() * (6 - 5) + 5);
+>>>>>>> 83cb3a1915bf1ed25ba12337015c37b6905efd37
 var bricksWidth = 40;
 var bricksHeight = 30;
 var brickPadding = 50;
